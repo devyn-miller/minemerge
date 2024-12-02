@@ -16,9 +16,10 @@ interface AudioContextType {
 const AudioContext = createContext<AudioContextType | null>(null);
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  const [isMusicPlaying, setIsMusicPlaying] = useState(true); // Start with music on
-  const [musicVolume, setMusicVolume] = useState(0.5); // 50% default volume
-  const [effectsVolume, setEffectsVolume] = useState(1); // 100% default volume for break sound
+  const [isMusicPlaying, setIsMusicPlaying] = useState(true);
+  const [musicVolume, setMusicVolume] = useState(0.5);
+  const [effectsVolume, setEffectsVolume] = useState(1);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const breakSoundRef = useRef<HTMLAudioElement | null>(null);
   const bgMusicRef = useRef<HTMLAudioElement | null>(null);
 
@@ -34,24 +35,42 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   }, [effectsVolume]);
 
-  // Start playing background music on mount
   useEffect(() => {
-    if (bgMusicRef.current && isMusicPlaying) {
-      bgMusicRef.current.play().catch(error => {
-        console.log('Auto-play prevented:', error);
-        setIsMusicPlaying(false);
-      });
-    }
-  }, []);
+    const handleInteraction = () => {
+      if (!hasInteracted) {
+        setHasInteracted(true);
+        if (bgMusicRef.current && isMusicPlaying) {
+          bgMusicRef.current.play().catch(error => {
+            console.log('Music play prevented:', error);
+            setIsMusicPlaying(false);
+          });
+        }
+      }
+    };
 
-  const playBreakSound = () => {
-    if (breakSoundRef.current && effectsVolume > 0) {
-      breakSoundRef.current.currentTime = 1.8; // Start from beginning
-      breakSoundRef.current.play().catch(error => {
-        console.log('Break sound play prevented:', error);
-      });
+    window.addEventListener('click', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+    window.addEventListener('touchstart', handleInteraction);
+
+    return () => {
+      window.removeEventListener('click', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+  }, [hasInteracted, isMusicPlaying]);
+
+  useEffect(() => {
+    if (bgMusicRef.current) {
+      bgMusicRef.current.loop = true;
+      bgMusicRef.current.volume = musicVolume;
+      if (hasInteracted && isMusicPlaying) {
+        bgMusicRef.current.play().catch(error => {
+          console.log('Music play prevented:', error);
+          setIsMusicPlaying(false);
+        });
+      }
     }
-  };
+  }, [hasInteracted, isMusicPlaying, musicVolume]);
 
   const toggleBackgroundMusic = () => {
     if (bgMusicRef.current) {
@@ -59,9 +78,20 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         bgMusicRef.current.pause();
         setIsMusicPlaying(false);
       } else if (musicVolume > 0) {
-        bgMusicRef.current.play();
+        bgMusicRef.current.play().catch(error => {
+          console.log('Music toggle prevented:', error);
+        });
         setIsMusicPlaying(true);
       }
+    }
+  };
+
+  const playBreakSound = () => {
+    if (breakSoundRef.current && effectsVolume > 0) {
+      breakSoundRef.current.currentTime = 0;
+      breakSoundRef.current.play().catch(error => {
+        console.log('Break sound play prevented:', error);
+      });
     }
   };
 
