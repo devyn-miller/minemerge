@@ -329,19 +329,22 @@ function MineMerge() {
             {showSettings && (
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
                 <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl relative">
+                  <div className="absolute top-2 right-2">
+                    <Tooltip text="Close settings">
+                      <button 
+                        onClick={() => setShowSettings(false)}
+                        className="text-gray-600 hover:text-gray-800 text-2xl font-bold w-8 h-8 flex items-center justify-center"
+                        aria-label="Close settings"
+                      >
+                        ×
+                      </button>
+                    </Tooltip>
+                  </div>
                   <GameSettings
                     config={config}
                     onConfigChange={handleConfigChange}
                     onClose={() => setShowSettings(false)}
                   />
-                  <Tooltip text="Close settings">
-                    <button 
-                      onClick={() => setShowSettings(false)}
-                      className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-xl font-bold"
-                    >
-                      ×
-                    </button>
-                  </Tooltip>
                 </div>
               </div>
             )}
