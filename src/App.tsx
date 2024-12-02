@@ -221,7 +221,7 @@ function MineMerge() {
               <div className="text-center mb-8">
                 <img 
                   className="w-128 h-128 object-contain mx-auto mb-4"
-                  src="/MineMerge.png" 
+                  src="MineMerge.png" 
                   alt="MineMerge" 
                   width={512}
                   height={512}
