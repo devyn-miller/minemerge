@@ -57,12 +57,6 @@ export function GameSettings({ config, onConfigChange, onClose }: GameSettingsPr
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-semibold text-gray-800">Game Settings</h2>
-        <button 
-          onClick={onClose}
-          className="text-gray-500 hover:text-gray-700 p-2"
-        >
-          ×
-        </button>
       </div>
 
       <div>

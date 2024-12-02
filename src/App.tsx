@@ -328,7 +328,7 @@ function MineMerge() {
             {/* Settings modal */}
             {showSettings && (
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-                <div className="bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm rounded-lg p-6 max-w-md w-full mx-4 shadow-xl">
+                <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl relative">
                   <GameSettings
                     config={config}
                     onConfigChange={handleConfigChange}
@@ -337,7 +337,7 @@ function MineMerge() {
                   <Tooltip text="Close settings">
                     <button 
                       onClick={() => setShowSettings(false)}
-                      className="absolute top-2 right-2 text-white hover:text-gray-300"
+                      className="absolute top-4 right-4 text-gray-600 hover:text-gray-800 text-xl font-bold"
                     >
                       ×
                     </button>
