@@ -329,11 +329,11 @@ function MineMerge() {
             {showSettings && (
               <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
                 <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4 shadow-xl relative">
-                  <div className="absolute top-2 right-2">
-                    <Tooltip text="Close settings">
+                  <div className="absolute -top-2 -right-2 z-10">
+                    <Tooltip text="Close settings" className="z-20">
                       <button 
                         onClick={() => setShowSettings(false)}
-                        className="text-gray-600 hover:text-gray-800 text-2xl font-bold w-8 h-8 flex items-center justify-center"
+                        className="bg-white hover:bg-gray-100 text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow-md"
                         aria-label="Close settings"
                       >
                         ×
