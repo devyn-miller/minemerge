@@ -2,14 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  color-scheme: light;
+}
+
+html {
+  background-color: #ffffff;
+  color: #000000;
+}
+
 body {
   font-family: 'Roboto Mono', monospace;
   font-size: 18px; /* Slightly adjusted for Roboto Mono */
   letter-spacing: 0.5px; /* Slight letter spacing for better readability */
+  background-color: #ffffff;
+  color: #000000;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, .heading {
   font-family: 'Press Start 2P', cursive;
+  color: #000000;
+}
+
+/* Force all text elements to maintain their colors */
+p, span, div, button, label {
+  color: inherit;
+}
+
+/* Override any system color preferences */
+@media (prefers-color-scheme: dark) {
+  html {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  body {
+    background-color: #ffffff;
+    color: #000000;
+  }
 }
 
 @keyframes fade-up {

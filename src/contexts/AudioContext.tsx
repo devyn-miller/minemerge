@@ -69,24 +69,24 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     <AudioContext.Provider 
       value={{ 
         playBreakSound, 
-        toggleBackgroundMusic, 
-        isMusicPlaying, 
+        toggleBackgroundMusic,
+        isMusicPlaying,
         setIsMusicPlaying,
         musicVolume,
         setMusicVolume,
         effectsVolume,
-        setEffectsVolume
+        setEffectsVolume,
       }}
     >
-      <audio 
-        ref={breakSoundRef}
-        src={breakBlocksSound}
-        preload="auto"
-      />
-      <audio 
+      <audio
         ref={bgMusicRef}
         src={backgroundMusic}
         loop
+        preload="auto"
+      />
+      <audio
+        ref={breakSoundRef}
+        src={breakBlocksSound}
         preload="auto"
       />
       {children}
